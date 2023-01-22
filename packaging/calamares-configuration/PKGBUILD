@@ -1,33 +1,32 @@
 # Maintainer: shivanandvp <shivanandvp@rebornos.org, shivanandvp.oss@gmail.com>
 
-pkgname=calamares-configuration
+pkgname=calamares-configuration-rock5b
 pkgver=0.1.9
-pkgrel=1
+pkgrel=2
 
-arch=('i686' 'x86_64' 'armv6h' 'armv7h')
+arch=('aarch64')
 pkgdesc='Configuration for the RebornOS Calamares installer.'
-url='https://github.com/RebornOS-Developers/calamares-configuration'
+url='https://github.com/RebornOS-Developers/calamares-configuration-rock5b'
 license=('GPL3')
 depends=('python' 'python-yaml')
 optdepends=('calamares')
 provides=('calamares-config')
-conflicts=('calamares-configuration' 'calamares-configuration-git' 'calamares-configuration-local')
-md5sums=('SKIP')
+conflicts=('calamares-configuration' 'calamares-configuration-git')
+md5sums=()
 makedepends=() 
-
-source=("https://github.com/RebornOS-Developers/calamares-configuration/archive/refs/tags/v${pkgver}.tar.gz")
+source=()
 
 package() {
-    PROJECT_DIRECTORY="${srcdir}/calamares-configuration-${pkgver}"
+    PROJECT_DIRECTORY="$(dirname -- "$(dirname -- "$(dirname -- "$(pwd)")")")"
     # RESOURCE_DIRECTORY="$PROJECT_DIRECTORY/packaging/resources"
     # BUILD_DIRECTORY="$PROJECT_DIRECTORY/build"
     # NUMBER_OF_PROCESSORS="$(nproc)"
     # NUMBER_OF_PROCESSORS="$(($NUMBER_OF_PROCESSORS-1))"
     DIST_DIRECTORY_STUB="etc/calamares"
-    DIST_DIRECTORY="$PROJECT_DIRECTORY/$DIST_DIRECTORY_STUB"
+    DIST_DIRECTORY="$PROJECT_DIRECTORY/$DIST_DIRECTORY_STUB"  
     LIB_DIRECTORY_STUB="usr/lib/calamares/modules"
-    LIB_DIRECTORY="$PROJECT_DIRECTORY/$LIB_DIRECTORY_STUB"        
-        
+    LIB_DIRECTORY="$PROJECT_DIRECTORY/$LIB_DIRECTORY_STUB"     
+
     # =======================================
     # Calamares-related files and directories
     # =======================================
@@ -95,15 +94,15 @@ package() {
             -exec \
                 install -Dm 700 "{}" "${pkgdir}/$DIST_DIRECTORY_STUB/{}" \;
     )
-    (   # -------------------
-        # Copy local packages
-        # -------------------
-        cd "$DIST_DIRECTORY" && \
-        find local_packages \
-            -type f \
-            -exec \
-                install -Dm 700 "{}" "${pkgdir}/$DIST_DIRECTORY_STUB/{}" \;
-    )
+    # (   # -------------------
+    #     # Copy local packages
+    #     # -------------------
+    #     cd "$DIST_DIRECTORY" && \
+    #     find local_packages \
+    #         -type f \
+    #         -exec \
+    #             install -Dm 700 "{}" "${pkgdir}/$DIST_DIRECTORY_STUB/{}" \;
+    # )
     (   # -------------------
         # Copy custom modules
         # -------------------

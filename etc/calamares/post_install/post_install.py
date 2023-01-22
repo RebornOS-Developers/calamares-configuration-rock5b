@@ -45,8 +45,6 @@ def main():
 
     config: Dict = load_configuration()
 
-    copy_files()
-
     if are_installed(NVIDIA_PACKAGES):
         add_nvidia_modeset()
 
